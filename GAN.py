@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import os
 from scipy import ndimage
-from keras.datasets import mnist
 from keras.layers import Input, Dense, Reshape, Flatten, BatchNormalization
 from keras.layers.advanced_activations import LeakyReLU
 from keras.models import Model, Sequential
@@ -83,67 +82,6 @@ class GAN():
 
         return Model(noise, generated_image)
 
-        # could have to use input_shape=500*500*3 for the first layer
-        # model.add(Dense(256, input_dim=self.latent_dim))
-        # model.add(LeakyReLU(alpha=0.2))
-        # model.add(BatchNormalization(momentum=0.9))
-        #
-        # model.add(Dense(512))
-        # model.add(LeakyReLU(alpha=0.2))
-        # model.add(BatchNormalization(momentum=0.9))
-        #
-        # model.add(Dense(1024))
-        # model.add(LeakyReLU(alpha=0.2))
-        # model.add(BatchNormalization(momentum=0.9))
-        #
-        # model.add(Dense(2048))
-        # model.add(LeakyReLU(alpha=0.2))
-        # model.add(BatchNormalization(momentum=0.9))
-        #
-        # model.add(Dense(4096))
-        # model.add(LeakyReLU(alpha=0.2))
-        # model.add(BatchNormalization(momentum=0.9))
-        #
-        # model.add(Dense(8192))
-        # model.add(LeakyReLU(alpha=0.2))
-        # model.add(BatchNormalization(momentum=0.9))
-        #
-        # model.add(Dense(16384))
-        # model.add(LeakyReLU(alpha=0.2))
-        # model.add(BatchNormalization(momentum=0.9))
-        #
-        # model.add(Dense(32768))
-        # model.add(LeakyReLU(alpha=0.2))
-        # model.add(BatchNormalization(momentum=0.9))
-        #
-        # model.add(Dense(65536))
-        # model.add(LeakyReLU(alpha=0.2))
-        # model.add(BatchNormalization(momentum=0.9))
-        #
-        # model.add(Dense(131072))
-        # model.add(LeakyReLU(alpha=0.2))
-        # model.add(BatchNormalization(momentum=0.9))
-        #
-        # model.add(Dense(262144))
-        # model.add(LeakyReLU(alpha=0.2))
-        # model.add(BatchNormalization(momentum=0.9))
-        #
-        # model.add(Dense(524288))
-        # model.add(LeakyReLU(alpha=0.2))
-        # model.add(BatchNormalization(momentum=0.9))
-
-        # last layer of generator output is a Tanh (works well)
-        # remember 500*500*3=750000 in this layer (very high)
-        # model.add(Dense(np.prod(self.img_shape), activation='tanh'))
-        # model.add(Reshape(self.img_shape))
-        # # might need to iteratively add layers up to a certain number of inputs and stop -> computational time
-        # model.summary()
-        #
-        # generator_noise = Input(shape=(self.latent_dim,))
-        # img = model(generator_noise)
-        #
-        # return Model(generator_noise, img)
-
     def define_discriminator(self):
         model = Sequential()
 
@@ -164,125 +102,7 @@ class GAN():
 
         return Model(discriminated_image, valid)
 
-        # model.add(Dense(524288))
-        # model.add(LeakyReLU(alpha=0.2))
-        #
-        # model.add(Dense(262144))
-        # model.add(LeakyReLU(alpha=0.2))
-        #
-        # model.add(Dense(131072))
-        # model.add(LeakyReLU(alpha=0.2))
-        #
-        # model.add(Dense(65536))
-        # model.add(LeakyReLU(alpha=0.2))
-        #
-        # model.add(Dense(32768))
-        # model.add(LeakyReLU(alpha=0.2))
-        #
-        # model.add(Dense(16384))
-        # model.add(LeakyReLU(alpha=0.2))
-        #
-        # model.add(Dense(8192))
-        # model.add(LeakyReLU(alpha=0.2))
-        #
-        # model.add(Dense(4096))
-        # model.add(LeakyReLU(alpha=0.2))
-        #
-        # model.add(Dense(2048))
-        # model.add(LeakyReLU(alpha=0.2))
-        #
-        # model.add(Dense(1024))
-        # model.add(LeakyReLU(alpha=0.2))
-        #
-        # model.add(Dense(512))
-        # model.add(LeakyReLU(alpha=0.2))
-        #
-        # model.add(Dense(256))
-        # model.add(LeakyReLU(alpha=0.2))
-        #
-        # model.add(Dense(1, activation='sigmoid'))
-        #
-        # model.summary()
-        #
-        # img = Input(shape=self.img_shape)
-        # valid_image = model(img)
-        #
-        # return Model(img, valid_image)
-
-    # def train(self, epochs, batch_size=23, sample_interval=10):
-    #     file_list = [f for f in os.listdir('images/') if os.path.isfile(os.path.join('images/', f))]
-    #     cloud_images = []
-    #     path = 'images/'
-    #
-    #     for file in file_list:
-    #         image = mpimg.imread(path + file)
-    #         cloud_images.append(image)
-    #
-    #     real = np.ones((batch_size, 1))
-    #     fake = np.zeros((batch_size, 1))
-    #
-    #     # convert array of images to a numerical array representation
-    #     cloud_image_array = np.array(cloud_images)
-    #
-    #     # normalising here gives overcommitment error
-    #     # cloud_image_array = 2 * (cloud_image_array / 255) - 1
-    #
-    #     # need to train with batches of real and generated images
-    #
-    #     for epoch in range(epochs):
-    #
-    #         # select a random batch of images to train with
-    #         image_indices = np.random.randint(0, cloud_image_array.shape[0], size=batch_size)
-    #         image_batch = cloud_image_array[image_indices]
-    #         image_batch_array = np.array(image_batch)
-    #
-    #         # could normalise here instead on the batch
-    #         # --> could be inefficient recalculating in a loop though
-    #         # image_batch_array = 2 * (image_batch_array / 255) - 1
-    #
-    #         noise1 = np.random.normal(0, 1, (batch_size, self.latent_dim))
-    #         generate_images = self.generator.predict(noise1)
-    #
-    #         disc_loss_real = self.discriminator.train_on_batch(image_batch_array, real)
-    #         disc_loss_fake = self.discriminator.train_on_batch(generate_images, fake)
-    #         disc_loss = 0.5 * np.add(disc_loss_real, disc_loss_fake)
-    #
-    #         noise2 = np.random.normal(0, 1, (batch_size, self.latent_dim))
-    #         gen_loss = self.combined.train_on_batch(noise2, real)
-    #
-    #         print(
-    #             "%d [Disc loss: %f, acc.: %.2f%%] [Gen loss: %f]" % (epoch, disc_loss[0], 100 * disc_loss[1], gen_loss))
-    #
-    #         if epoch % sample_interval == 0:
-    #             self.sample_images(epoch)
-
-    # def sample_images(self, epoch):
-    #     r, c = 10, 10
-    #     noise = np.random.normal(0, 1, (r * c, self.latent_dim))
-    #
-    #     gen_images = self.generator.predict(noise)
-    #     gen_images = 0.5 * gen_images + 0.5  # rescaling
-    #
-    #     figure, ax = plt.subplots(r, c)
-    #     count = 0  # cnt - renamed
-    #
-    #     for i in range(r):
-    #         for j in range(c):
-    #             ax[i, j].imshow(gen_images[count, :, :, 0], cmap='gray')
-    #             ax[i, j].axis('off')
-    #             count += 1
-    #
-    #     figure.savefig("generated_images/%d.jpg" % epoch)
-    #     plt.close()
-
     def train(self, cloud_images, epochs, batch_size, interval):
-        # (x_train, y_train), (x_test, y_test) = mnist.load_data()
-
-        # x_train = x_train.reshape(x_train.shape[0], 28, 28, 1).astype('float32')
-        # x_train = (x_train - 127.5) / 127.5  # normalising between [-1, 1]
-
-        # num_train, num_test = x_train.shape[0], x_test.shape[0]
-
         # normalisation of images between [-1, 1]
         cloud_images = np.array(cloud_images)
         cloud_images = cloud_images.astype('float32')
