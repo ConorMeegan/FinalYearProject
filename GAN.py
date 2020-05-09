@@ -40,7 +40,7 @@ class GAN():
         self.img_columns = 500
         self.channels = 3
         self.img_shape = (self.img_rows, self.img_columns, self.channels)
-        self.latent_dim = 100
+        self.latent_dim = 250
 
         optimizer = Adam(0.00025, 0.5)  # learning rate of 0.00025
 
@@ -71,6 +71,10 @@ class GAN():
         model.add(Dense(64))
         model.add(LeakyReLU(alpha=0.2))
         model.add(BatchNormalization(momentum=0.9))
+        #
+        # model.add(Dense(128))
+        # model.add(LeakyReLU(alpha=0.2))
+        # model.add(BatchNormalization(momentum=0.9))
 
         model.add(Dense(np.prod(self.img_shape), activation='tanh'))
         model.add(Reshape(self.img_shape))
@@ -87,6 +91,9 @@ class GAN():
 
         model.add(Flatten(input_shape=self.img_shape))  # Flattens input without affecting batch size
 
+        # model.add(Dense(128))
+        # model.add(LeakyReLU(alpha=0.2))
+        #
         model.add(Dense(64))
         model.add(LeakyReLU(alpha=0.2))
 
@@ -226,4 +233,4 @@ if __name__ == '__main__':
     transformed_cloud_images = data_load('saved_images/')
 
     gan = GAN()
-    gan.train(transformed_cloud_images, epochs=100, batch_size=32, interval=10)
+    gan.train(transformed_cloud_images, epochs=1000, batch_size=32, interval=10)
