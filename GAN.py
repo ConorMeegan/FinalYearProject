@@ -10,29 +10,6 @@ from keras.models import Model, Sequential
 from keras.optimizers import Adam
 from keras.utils.generic_utils import Progbar
 
-# can try to progressively grow the GAN in terms of layers
-# by increasing the resolution gradually
-# we are continuously asking the networks
-# to learn a much simpler piece of the overall problem
-# should stabilise training
-# improves the quality of the final image by reducing the
-# likelihood that the network will get
-# some high-level structure drastically wrong
-# also more computationally efficient than
-# initialising all the layers at once
-
-# start at 4x4 and double representation size at each layer
-# 4x4 -> 8x8 -> 16x16 -> ... -> kxk
-# try to cap the no. of filters before 512
-
-# Discriminator should output D(X)
-# This is its confidence that the input image
-# came from the training set
-# kxk -> ... -> 8x8 -> 4x4
-
-# should normalise the inputs
-# i.e. normalise the images between -1 and 1
-# use formula: 2*(x - x.min()) / (x.max() - x.min()) - 1
 
 class GAN():
     def __init__(self):
@@ -111,6 +88,8 @@ class GAN():
 
     def train(self, cloud_images, epochs, batch_size, interval):
         # normalisation of images between [-1, 1]
+        # using formula: 2 * (x - x.min()) / (x.max() - x.min()) - 1
+        # x.min() being 0, and x.max() being 255 for RGB images
         cloud_images = np.array(cloud_images)
         cloud_images = cloud_images.astype('float32')
         cloud_images = (cloud_images - 127.5) / 127.5
