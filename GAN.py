@@ -204,12 +204,12 @@ def save_images(input_images):
 
 
 if __name__ == '__main__':
-    # cloud_images = data_load('images/')
-    # clouds_90, clouds_180, clouds_270, clouds_rotated_overall = rotation(cloud_images)
-    # overall_cloud_images = reflection(clouds_rotated_overall)
-    # save_images(overall_cloud_images)
+    # Used to perform the various affine transformations on the image dataset
+    cloud_images = data_load('images/')
+    clouds_90, clouds_180, clouds_270, clouds_rotated_overall = rotation(cloud_images)
+    overall_cloud_images = reflection(clouds_rotated_overall)
+    save_images(overall_cloud_images)
 
     transformed_cloud_images = data_load('saved_images/')
-
     gan = GAN()
     gan.train(transformed_cloud_images, epochs=1000, batch_size=32, interval=10)
