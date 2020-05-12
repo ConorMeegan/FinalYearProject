@@ -92,7 +92,7 @@ class GAN():
         # x.min() being 0, and x.max() being 255 for RGB images
         cloud_images = np.array(cloud_images)
         cloud_images = cloud_images.astype('float32')
-        cloud_images = (cloud_images - 127.5) / 127.5
+        cloud_images = cloud_images/127.5 - 1
 
         num_train = cloud_images.shape[0]
 
