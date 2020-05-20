@@ -46,7 +46,8 @@ interpreter being used is version 3.7
     of epochs chosen</li>
     <li>The images generated will be saved at certain intervals which can be changed
      by the user and stored in the 'generated_images' folder</li>
-    <li>Finally, run the last 5 lines of code setting the folder name to be the one with
+    <li>Finally, run the final lines of code after the GAN has trained to generate 
+    the binary maps for the generated images. Set the folder name to be the one with
     the images you wish to generate a binary map of. Alter the interval in the for
     loop if necessary to fit the interval the GAN saved images at.</li>
 </ol> 
