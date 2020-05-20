@@ -132,8 +132,8 @@ class GAN():
                 progress_bar.update(i+1)
 
     def generate_and_save_images(self, epoch):
-        row_images, column_images = 1, 1  # 1, 1
-        # number of images we generate is equal to --> row_images * column_images = 16
+        row_images, column_images = 1, 1  # 4, 4
+        # number of images we generate is equal to --> row_images * column_images
         gen_noise = np.random.normal(0, 1, (row_images*column_images, self.latent_dim))
         gen_images = self.generator.predict(gen_noise)
 
@@ -216,9 +216,9 @@ if __name__ == '__main__':
     gan.train(transformed_cloud_images, epochs=1000, batch_size=32, interval=10)
 
     # used to generate the binary maps for a sample of images
-    image_loc = './generated_single_images_and_binary_maps/43900.png'
+    image_loc = './generated_single_cloud_images/43900.png'
     clustering.run_kmeans(image_loc, 43900)
 
     for i in range(0, 44000, 1000):
-        image_location = "./generated_single_images_and_binary_maps/" + str(i) + ".png"
+        image_location = "./generated_single_cloud_images/" + str(i) + ".png"
         clustering.run_kmeans(image_location, i)
