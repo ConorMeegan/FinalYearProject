@@ -216,7 +216,7 @@ def transform_images():
 def train_GAN():
     transformed_cloud_images = transformations.data_load('saved_images/')
     gan = GAN()
-    gan.train(transformed_cloud_images, epochs=1, batch_size=32, interval=10)
+    gan.train(transformed_cloud_images, epochs=1000, batch_size=32, interval=10)
 
 
 def binary_maps():
