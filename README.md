@@ -25,29 +25,33 @@ interpreter being used is version 3.7
     <li>Clone the repository at:
     https://github.com/ConorMeegan/FinalYearProject.git</li>
     <li>Open up the GAN.py file</li>
-    <li>Create three folders, one named 'images' another named 
-    'saved_images', and another named 'generated_images' 
-    at the same level as the GAN.py file</li>
+    <li>Create four folders, one named 'images' another named 
+    'saved_images', another named 'generated_images', and lastly one
+    named 'binary_maps' at the same level as the GAN.py file</li>
     <li>Place the images downloaded from the link into the 'images' folder</li>
     <li>There will be three runs of the code performed. 
     The first to transform the image data. The second will be to train the GAN.
     The third will be to generate the accompanying binary maps for the images.</li>
-    <li>Run the first 4 lines of code in the main of the GAN.py file 
+    <li>Run the 'transform_images()' line of code in the main of the GAN.py file 
     to perform affine transformations on the images stored in the 'images' folder, 
-    while commenting out the final 3 lines of main so as to not create the GAN yet</li>
+    while commenting out the 'train_GAN()' and 'binary_maps()' lines of code</li>
     <li>The images should be saved in the 'saved_images' folder along with 
     the various transformations of the images</li>
-    <li>Comment out the lines of code that create the images for 
-    the 'saved_images' folder to save time while testing the running of the GAN</li>
-    <li>Uncomment and run the next 3 lines of code in the main of the GAN.py file for 
-    the number of epochs you wish to train the GAN for</li>
+    <li>Now comment out the 'transform_images()' line of code that create the 
+    images for the 'saved_images' folder to save time while testing the running and
+    training of the GAN</li>
+    <li>Uncomment and run the 'train_GAN()' line of code in the main of the GAN.py 
+    file for the number of epochs you wish to train the GAN for</li>
     <li>Once running, the summary of the Generator and Discriminator 
     networks will be printed out as well as the training progress for the number 
     of epochs chosen</li>
     <li>The images generated will be saved at certain intervals which can be changed
      by the user and stored in the 'generated_images' folder</li>
-    <li>Finally, run the final lines of code after the GAN has trained to generate 
-    the binary maps for the generated images. Set the folder name to be the one with
-    the images you wish to generate a binary map of. Alter the interval in the for
-    loop if necessary to fit the interval the GAN saved images at.</li>
+    <li>Now comment out the 'train_GAN()' line of code once the images have 
+    been generated</li>
+    <li>Finally, uncomment and run the 'binary_maps()' line of code after the GAN 
+    has trained to generate the binary maps for the generated images. Set the 
+    folder name to be the one with the images you wish to generate a binary map of. 
+    Alter the interval in the for loop if necessary to fit the interval the GAN 
+    saved images at.</li>
 </ol> 
