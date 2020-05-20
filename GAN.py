@@ -9,6 +9,7 @@ from keras.layers.advanced_activations import LeakyReLU
 from keras.models import Model, Sequential
 from keras.optimizers import Adam
 from keras.utils.generic_utils import Progbar
+import clustering
 
 
 class GAN():
@@ -131,7 +132,7 @@ class GAN():
                 progress_bar.update(i+1)
 
     def generate_and_save_images(self, epoch):
-        row_images, column_images = 4, 4
+        row_images, column_images = 1, 1  # 1, 1
         # number of images we generate is equal to --> row_images * column_images = 16
         gen_noise = np.random.normal(0, 1, (row_images*column_images, self.latent_dim))
         gen_images = self.generator.predict(gen_noise)
@@ -141,7 +142,7 @@ class GAN():
         figure = plt.figure(figsize=(row_images, column_images))
 
         for i in range(gen_images.shape[0]):
-            plt.subplot(4, 4, i+1)
+            plt.subplot(row_images, column_images, i+1)
             # gen_images[i, :, :, 0] * 127.5 + 127.5 normalising in loop
             plt.imshow(gen_images[i, :, :, 0] * 127.5 + 127.5, cmap='Greys')
             plt.axis('off')
@@ -213,3 +214,11 @@ if __name__ == '__main__':
     transformed_cloud_images = data_load('saved_images/')
     gan = GAN()
     gan.train(transformed_cloud_images, epochs=1000, batch_size=32, interval=10)
+
+    # used to generate the binary maps for a sample of images
+    image_loc = './generated_single_images_and_binary_maps/43900.png'
+    clustering.run_kmeans(image_loc, 43900)
+
+    for i in range(0, 44000, 1000):
+        image_location = "./generated_single_images_and_binary_maps/" + str(i) + ".png"
+        clustering.run_kmeans(image_location, i)
